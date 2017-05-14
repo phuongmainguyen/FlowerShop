@@ -8,30 +8,54 @@ package flowershop;
 import java.util.*;
 
 /**
- *
+ * The Bundles class contains a list of bundles.
+ * 
  * @author nmp
  */
 public class Bundles 
 {
     private ArrayList<Bundle> bundles;
     
+    /**
+    * Constructor to instantiate the Bundles object.
+    */
     public Bundles()
     {
         bundles = new ArrayList<Bundle>();
     }
     
+    /**
+    * Constructor to instantiate the Bundles object.
+    * 
+    * @param bundles An ArrayList of Bundle objects
+    */
     public Bundles(ArrayList<Bundle> bundles)
     {
-        this.bundles = bundles;
+        if (bundles != null)
+            this.bundles = bundles;
     }
     
+    /**
+    * This method adds a bundle to the list.
+    * 
+    * @param bundle A bundle to be added
+    */
     public void addBundle(Bundle bundle)
     {
-        bundles.add(bundle);
+        if(bundle != null)
+            bundles.add(bundle);
     }
     
+    /**
+    * Retrieves the bundle that matches the criteria of product code and quantity.
+    * 
+    * @param productCode The product code of the bundle to be retrieved
+    * @param quantity The quantity of the bundle
+    * @return Bundle An object representing the bundle. Null if not found.
+    */
     public Bundle getBundle(String productCode, int quantity)
-    {// ASSUMPTIONS: ONly one bundle matches this.
+    {
+        // ASSUMPTION: Bundles are unique in code and quantity.
         if (bundles != null && bundles.size() > 0)
         {
             for(Bundle b : bundles)
@@ -44,6 +68,12 @@ public class Bundles
         return null;
     }
     
+    /**
+    * Retrieves the list of bundles that matches the criteria of product code.
+    * 
+    * @param productCode The product code of the bundle to be retrieved
+    * @return A list of Bundle. Null if not found.
+    */
     public ArrayList<Bundle> getBundles(String productCode)
     {
         ArrayList<Bundle> innerBundles = null;
@@ -61,26 +91,45 @@ public class Bundles
         return innerBundles;
     }
     
+    /**
+    * Retrieves the list of bundles that matches the criteria of quantities
+    * saved in an array of ints.
+    * 
+    * @param quantities An array of integers representing quantities of the bundles, e.g. 3, 4, 5
+    * @return Bundles An object representing the bundles. Null if not found.
+    */
     public Bundles getBundles(int[] quantities)
     {
         ArrayList<Bundle> innerBundles = null;
         
         if (bundles != null && bundles.size() > 0)
         {
-            innerBundles = new ArrayList<Bundle>();
             for(Bundle b : bundles)
             {
                 for(int i : quantities)
                 {
                     if(b.getQuantity() == i)
+                    {
+                        if (innerBundles == null)
+                            innerBundles = new ArrayList<Bundle>();
+                    
                         innerBundles.add(b);
+                    }
                 }
             }
         }
         
-        return new Bundles(innerBundles);
+        if(innerBundles != null && innerBundles.size() > 0)
+            return new Bundles(innerBundles);
+        
+        return null;
     }
     
+    /**
+    * Retrieves the size of the current Bundles object.
+    * 
+    * @return The number of bundles
+    */
     public int getSize()
     {
         if (bundles != null)
@@ -89,6 +138,13 @@ public class Bundles
         return 0;
     }
     
+    /**
+    * Retrieves all the quantities as an array list of integers based on the product
+    * code.
+    * 
+    * @param productCode The product code of the bundle to be retrieved
+    * @return An array list of integers
+    */
     public ArrayList<Integer> getQuantitiesAsList(String productCode)
     {
         ArrayList<Integer> list = null;
@@ -105,6 +161,11 @@ public class Bundles
         return list;
     }
     
+    /**
+    * Retrieves the bundle cost.
+    * 
+    * @return The bundle cost
+    */
     public float getBundleCost()
     {
         float cost = 0.0f;
@@ -120,6 +181,11 @@ public class Bundles
         return cost;
     }
     
+    /**
+    * Group all the bundles in the current object into type, e.g. quantity and price
+    * 
+    * @return A map of the grouped bundles.
+    */
     private Map groupBundlesByType()
     {
         Map<String, Integer> map = new TreeMap<String, Integer>(Collections.reverseOrder());
@@ -164,6 +230,11 @@ public class Bundles
         return str;
     }
     
+    /**
+    * Setup all the default bundles available for sale.
+    * 
+    * @return Bundle An object representing the bundle. Null if not found.
+    */
     public static Bundles setupBundles()
     {
         Bundles newBundles = new Bundles();

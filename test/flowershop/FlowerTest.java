@@ -7,6 +7,7 @@ package flowershop;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
+import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -16,6 +17,7 @@ import static org.junit.Assert.*;
  */
 public class FlowerTest 
 {
+    private Flower instance;
     
     public FlowerTest() 
     {
@@ -24,7 +26,6 @@ public class FlowerTest
     @BeforeClass
     public static void setUpClass() 
     {
-        Flower flower =
     }
     
     @AfterClass
@@ -32,6 +33,12 @@ public class FlowerTest
     {
     }
 
+    @Before
+    public void setUp()
+    {
+        instance = new Flower("Rose", "R12");
+    }
+    
     /**
      * Test of getName method, of class Flower.
      */
@@ -39,26 +46,23 @@ public class FlowerTest
     public void testGetName() 
     {
         System.out.println("getName");
-        Flower instance = null;
-        String expResult = "";
+        
         String result = instance.getName();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals("Rose", result);
+        
     }
 
     /**
      * Test of getProductCode method, of class Flower.
      */
     @Test
-    public void testGetProductCode() {
+    public void testGetProductCode() 
+    {
         System.out.println("getProductCode");
-        Flower instance = null;
-        String expResult = "";
+        
         String result = instance.getProductCode();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals("R12", result);
+        
     }
     
 }

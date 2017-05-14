@@ -48,8 +48,11 @@ public class BundlesTest
         Bundle bundle = null;
         Bundles instance = new Bundles();
         instance.addBundle(bundle);
+        assertEquals(0, instance.getSize());
         
-        assertEquals(instance.getSize(), 0);
+        bundle = new Bundle("R12", 5, 6.99f);
+        instance.addBundle(bundle);
+        assertEquals(1, instance.getSize());
     }
 
     /**
